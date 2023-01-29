@@ -47,20 +47,27 @@ WHERE address_id IN (
 );
 
 --Question 5: Which staff member had the most transactions?
-SELECT staff_id
-FROM staff
-WHERE staff_id IN(
-	SELECT staff_id
-	FROM rental
-	WHERE staff.staff_id = rental.staff_id and rental.rental_date = rental.rental_date
-); --need help
+SELECT staff_id, COUNT(staff_id)
+FROM payment
+GROUP BY staff_id
+ORDER BY COUNT(staff_id) DESC;
+-- FROM staff
+-- WHERE staff_id IN(
+-- 	SELECT staff_id
+-- 	FROM rental
+-- 	WHERE staff.staff_id = rental.staff_id and rental.rental_date = rental.rental_date
+-- ); --need help
 
 --Question 6: How many movies of each rating are there?
-SELECT inventory.inventory_id, film.rating
-FROM inventory
-INNER JOIN film
-ON inventory.film_id = film.film_id
-WHERE film_id IS rating;
+SELECT COUNT(film_id), rating
+FROM film
+GROUP BY rating
+ORDER BY COUNT(film_id) DESC;
+-- SELECT inventory.inventory_id, film.rating
+-- FROM inventory
+-- INNER JOIN film
+-- ON inventory.film_id = film.film_id
+-- WHERE film_id IS rating; --need help
 
 --Question 7: Show all customers who have made a single payment above $6.99 using subqueries
 SELECT first_name,last_name
@@ -74,6 +81,11 @@ WHERE customer_id IN (
 GROUP BY store_id,first_name,last_name;
 
 --Question 8: How many free rentals did our stores give away. --not understanding question.
+--need help
+SELECT COUNT(rental_id)
+FROM payment
+WHERE amount = 0;
 
 
-
+GROUP BY staff_id
+ORDER BY COUNT(staff_id) DESC;
